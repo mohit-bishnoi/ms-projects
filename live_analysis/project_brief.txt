@@ -1,0 +1,3 @@
+LiveAnalysis_Script.txt helps user to automate a Live Forensic analysis of Linux/Unix system. 
+Live analysis includes capturing various Artifacts (Digital Evidence) of Forensic value from a suspected system which is running.
+Live analysis helps a Investigator to capture Volatile evidence from a System.

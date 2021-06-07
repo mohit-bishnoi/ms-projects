@@ -1,0 +1,5 @@
+The project was build on Android SDK and coding was done using JAVA. 
+Here I have provided 2 files.
+FinalApp.apk and Code.docx. The FianlApp.apk file is the trojan calculator which performs disassociation attack on an Android device.
+Man in the Middle attack can also be performed using this Trojan calculator.
+Code.docx contains the actual Java code of various files used to build the FinalApp.apk file.

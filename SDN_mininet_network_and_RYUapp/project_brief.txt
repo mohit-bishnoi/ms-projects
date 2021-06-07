@@ -1,0 +1,5 @@
+This project is based upon SDN open Flow protocol where I used Mininet to create Wired and Wireless Network Architecture and used RYU Manager to run Routing and Switching application. 
+File flyingnetsv4.py contains wired network architecture which can be run using SDN-vm having Mininet installed 
+File wireless.py contains wireless network architecture which can be run using Mininet-WiFi. 
+The rs_appv4.py is the Routing and switching application which installs flow rules dynamically on the switches. 
+All of the coding has been done using Python. 

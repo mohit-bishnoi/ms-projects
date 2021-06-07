@@ -1,0 +1,248 @@
+echo -e "Please choose an option:\n"
+echo "1. List of Running Processes"
+echo "2. List of Running Services"
+echo "3. System Information (more options)"
+echo "4. Logged and Registered Users (more options)"
+echo "5. Network Information (more options)"
+echo "6. ARP Cache"
+echo "7. Auto-start Services"
+echo "8. Complete Live Analysis"
+echo -en "\nYour Option: "
+
+read op
+
+#1. processes
+if [ $op == 1 ]
+then
+echo -e "===============List of Running Processes===============\n" > Live_Analysis_Op1.txt
+ps -aux >> Live_Analysis_Op1.txt 2>&1 
+
+#2. services running
+elif [ $op == 2 ]
+then
+echo -e "===============List of Running Services===============\n" > Live_Analysis_Op2.txt
+service --status-all | grep "\[ + \]" >> Live_Analysis_Op2.txt 2>&1 
+
+#3. system information
+elif [ $op == 3 ]
+then
+if [ ! -f 'Live_Analysis_Op3.txt' ]
+then
+echo -e "===============System Information===============\n" > Live_Analysis_Op3.txt
+fi
+echo
+echo -e "Please choose a sub option:\n"
+echo "1. Machine, Kernel and Version Details"
+echo "2. Filesystem Disk Space Details"
+echo "3. Free and Used Memory"
+echo "4. Hardware Information"
+echo "5. CPU Information"
+echo -en "\nYour Sub-Option: "
+
+read sop
+  
+#--machine name, kernel name, version, and a few other details
+if [ $sop == 1 ]
+then
+echo -e "\n---------------Machine, Kernel and Version Details($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op3.txt 
+uname -a >> Live_Analysis_Op3.txt 2>&1
+
+#--filesystem disk space usage
+elif [ $sop == 2 ]
+then
+echo -e "\n---------------Filesystem Disk Space Details($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op3.txt
+df >> Live_Analysis_Op3.txt 2>&1
+
+#--free and used memory in the system
+elif [ $sop == 3 ]
+then
+echo -e "\n---------------Free and Used Memory($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op3.txt
+free >> Live_Analysis_Op3.txt 2>&1
+
+#--hardware info
+elif [ $sop == 4 ]
+then
+echo -e "\n---------------Hardware Information($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op3.txt
+echo -e '\n<<<<<<<<<<<<<<<Hardware Detailed Information>>>>>>>>>>>>>>>\n' >> Live_Analysis_Op3.txt
+sudo lshw >> Live_Analysis_Op3.txt 2>&1
+echo -e '\n<<<<<<<<<<<<<<<Hardware Summary>>>>>>>>>>>>>>>\n' >> Live_Analysis_Op3.txt
+sudo lshw -short >> Live_Analysis_Op3.txt 2>&1
+
+#--cpu info
+elif [ $sop == 5 ]
+then
+echo -e "\n---------------CPU Information($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op3.txt
+sudo lscpu >> Live_Analysis_Op3.txt 2>&1
+
+#any other option
+else
+echo 'Option does not exist'
+
+fi
+
+#4. logged on and registered users
+elif [ $op == 4 ]
+then
+if [ ! -f 'Live_Analysis_Op4.txt' ]
+then
+echo -e "===============Logged and Registered Users===============\n" > Live_Analysis_Op4.txt
+fi
+echo
+echo -e "Please choose a sub option:\n"
+echo "1. Logged on User"
+echo "2. Registered Users"
+echo -en "\nYour Sub-Option: "
+
+read sop
+
+#--logged on user
+if [ $sop == 1 ]
+then
+echo -e "\n---------------Logged on User($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op4.txt
+whoami >> Live_Analysis_Op4.txt 2>&1
+
+#--registered users
+elif [ $sop == 2 ]
+then
+echo -e "\n---------------Registered Users($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op4.txt
+cat /etc/passwd  >> Live_Analysis_Op4.txt 2>&1
+
+#any other option
+else
+echo "Option does not exist"
+
+fi
+
+
+
+#5. network information
+elif [ $op == 5 ]
+then
+if [ ! -f 'Live_Analysis_Op5.txt' ]
+then
+echo -e "===============Network Information===============\n" > Live_Analysis_Op5.txt
+fi
+echo
+echo -e "Please choose a sub option:\n"
+echo "1. List of Interfaces"                                                                                                                                                                                           echo "2. Registered users"                                                                                                                                                                                         
+echo "2. Details of Interfaces"
+echo "3. Routing Table"
+echo "4. List of All Ports"
+echo "5. List of Listening Ports"
+echo -en "\nYour Sub-Option: "
+
+read sop
+
+#--list of interfaces
+if [ $sop == 1 ]
+then
+echo -e "\n---------------List of Interfaces($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op5.txt
+sudo netstat -i >> Live_Analysis_Op5.txt 2>&1
+
+#--detials of interfaces
+elif [ $sop == 2 ]
+then
+echo -e "\n---------------Details of Interfaces($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op5.txt
+ifconfig >> Live_Analysis_Op5.txt 2>&1
+
+#--routing table
+elif [ $sop == 3 ]
+then
+echo -e "\n---------------Routing Table($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op5.txt
+sudo netstat -r >> Live_Analysis_Op5.txt 2>&1
+
+#--list of all ports
+elif [ $sop == 4 ]
+then
+echo -e "\n---------------List of All Ports($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op5.txt
+sudo netstat -a >> Live_Analysis_Op5.txt 2>&1
+
+#--list of listening ports
+elif [ $sop == 5 ]
+then
+echo -e "\n---------------List of Listening Ports($(date "+%Y.%m.%d-%H.%M.%S"))--------------\n" >> Live_Analysis_Op5.txt
+sudo netstat -l >> Live_Analysis_Op5.txt 2>&1
+
+#any other option
+else
+echo "Option does not exist"
+
+fi
+
+#6. arp cache
+elif [ $op == 6 ]
+then
+echo -e "===============ARP Cache===============\n" > Live_Analysis_Op6.txt
+arp -a >> Live_Analysis_Op6.txt 2>&1
+
+#7. auto-start services
+elif [ $op == 7 ]
+then
+echo -e "===============Auto-start Services===============\n" > Live_Analysis_Op7.txt
+ls -l /etc/init.d/ >> Live_Analysis_Op7.txt 2>&1
+
+#8. complete live analysis
+elif [ $op == 8 ]
+then
+echo -e "+++++++++++++++++++++++++Complete Live Analysis+++++++++++++++++++++++++\n" > Live_Analysis_Op8.txt
+
+echo -e "===============List of Running Processes===============\n" >> Live_Analysis_Op8.txt
+ps -aux >> Live_Analysis_Op8.txt 2>&1 
+
+echo -e "\n===============List of Running Services===============\n" >> Live_Analysis_Op8.txt
+service --status-all | grep "\[ + \]" >> Live_Analysis_Op8.txt 2>&1 
+
+echo -e "\n===============System Information===============\n" >> Live_Analysis_Op8.txt
+echo -e "\n---------------Machine, Kernel and Version Details--------------\n" >> Live_Analysis_Op8.txt 
+uname -a >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------Filesystem Disk Space Details--------------\n" >> Live_Analysis_Op8.txt
+df >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------Free and Used Memory--------------\n" >> Live_Analysis_Op8.txt
+free >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------Hardware Information--------------\n" >> Live_Analysis_Op8.txt
+echo -e '\n<<<<<<<<<<<<<<<Hardware Detailed Information>>>>>>>>>>>>>>>\n' >> Live_Analysis_Op8.txt
+sudo lshw >> Live_Analysis_Op8.txt 2>&1
+echo -e '\n<<<<<<<<<<<<<<<Hardware Summary>>>>>>>>>>>>>>>\n' >> Live_Analysis_Op8.txt
+sudo lshw -short >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------CPU Information--------------\n" >> Live_Analysis_Op8.txt
+sudo lscpu >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n===============Logged and Registered Users===============\n" >> Live_Analysis_Op8.txt
+echo -e "\n---------------Logged on User--------------\n" >> Live_Analysis_Op8.txt
+whoami >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------Registered Users--------------\n" >> Live_Analysis_Op8.txt
+cat /etc/passwd  >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n===============Network Information===============\n" >> Live_Analysis_Op8.txt
+echo -e "\n---------------List of Interfaces--------------\n" >> Live_Analysis_Op8.txt
+sudo netstat -i >> Live_Analysis_Op8.txt 2>&1
+
+
+echo -e "\n---------------Details of Interfaces--------------\n" >> Live_Analysis_Op8.txt
+ifconfig >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------Routing Table--------------\n" >> Live_Analysis_Op8.txt
+sudo netstat -r >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------List of All Ports--------------\n" >> Live_Analysis_Op8.txt
+sudo netstat -a >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n---------------List of Listening Ports--------------\n" >> Live_Analysis_Op8.txt
+sudo netstat -l >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n===============ARP Cache===============\n" >> Live_Analysis_Op8.txt
+arp -a >> Live_Analysis_Op8.txt 2>&1
+
+echo -e "\n===============Auto-start Services===============\n" >> Live_Analysis_Op8.txt
+ls -l /etc/init.d/ >> Live_Analysis_Op8.txt 2>&1
+
+#any other main option
+else
+echo "Option does not exist"
+
+fi
